@@ -9,6 +9,7 @@ using PluginCore.Localization;
 using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
+using ProjectManager.Projects.AS3;
 using PluginCore;
 
 namespace ConfigToggle
@@ -130,9 +131,14 @@ namespace ConfigToggle
                     if (cmd == "ProjectManager.Project")
                     {
                         IProject project = PluginBase.CurrentProject;
-                        if (project == null)
+                        if (project == null )
                         {
                             //pluginUI.Output.Text += "Project closed.\r\n";
+                        }
+                        else
+                        if ((project as AS3Project) == null)
+                        {
+                            this.pluginPanel.Hide();
                         }
                         else
                         {
@@ -167,7 +173,7 @@ namespace ConfigToggle
         public void AddEventHandlers()
         {
             // Set events you want to listen (combine as flags)
-            EventManager.AddEventHandler(this, EventType.FileSwitch | EventType.Command);
+            EventManager.AddEventHandler(this, /*EventType.FileSwitch |*/ EventType.Command);
         }
 
         /// <summary>
